@@ -1,0 +1,1 @@
+This program is designed to describe the development of a wheat canopy across the season. Added functionality will include the ablility to ascertain differential characteristics between different lines at certain times. More functionality will be added as the project progresses. This read me will be updated inline with the development of the project.
