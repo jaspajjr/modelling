@@ -77,7 +77,7 @@ def plot_fit(p0, tt, plot):
 def senescence(max_count, sen_rfr, p0):
 	#p0 is the parameters, max_count is the x value to read maximum rfr, sen_rfr is 
 	# the rfr value at senescence
-	if type(p0[0]) = str:
+	if type(p0[0]) == str:
 		# Check data type
 		sen = "NaN"
 		return sen
