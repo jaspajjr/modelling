@@ -53,3 +53,43 @@ def marquardt(f, x, y, p0):
 		# If the curve can't be fit then "NaN" will be used instead
 	return out
 
+def plot_fit(p0, tt, plot):
+	y_pred = []
+	max_rfr = 0
+	max_count = 0
+	if type(p0[0]) == str:
+		#checks if the value of the first pararmeter is a string, if it is 
+		# then the curve can not be fit and the NaN value will be used instead
+		y_pred = "NaN"
+		return y_pred, max_rfr, max_count
+	for a in range(0, 3001):
+		#calculates the function f, at each x between 0 and 3001
+		temp = f(a, p0)
+		y_pred.append(temp)
+		# adds the calculated value for each x to a list of all calculated values
+		if temp > max_rfr:
+			max_rfr = temp
+			max_count = a 
+		#Updates each x, the maximum calculated rfr value, it also takes the value of
+		# x at the maximum rfr
+	return y_pred, max_rfr, max_count
+
+def senescence(max_count, sen_rfr, p0):
+	#p0 is the parameters, max_count is the x value to read maximum rfr, sen_rfr is 
+	# the rfr value at senescence
+	if type(p0[0]) = str:
+		# Check data type
+		sen = "NaN"
+		return sen
+	for count in range(max_count, 3001):
+		# calculates the value of the function between max_count and 3001
+		temp = f(count, p0)
+		if round(temp, 2) == round(sen_rfr, 2):
+			#checks if the calculated rfr value corresponds to the predicted rfr 
+			# value at senescence, if it does then the value sen, is set to the 
+			# current x value
+			sen = count
+			break
+		else:
+
+
