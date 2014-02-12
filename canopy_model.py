@@ -13,12 +13,12 @@ def f (x, p0):
 	# The equation to be fitted, however with the parameters stored in p0
 	
 	c, b1, m1, a, b2, m2 = p0
-	return (c / (1 + np.exp((-1 * b1)) * (x - m1))) * (a + (c * np.exp(-np.exp((-1 * b2 * (x - m2))))))
+	return (c / (1 + np.exp((-1 * b1)) * (x - m1))) * (a + (c * np.exp(-np.exp((-1 * b2) * (x - m2)))))
 
 def f_fit (x, c, b1, m1, a, b2, m2):
 	#The equation to be fitted using the curve_fit protocol, in contrast with f, the parameters
 	# are not packed, and are available in a form that curve_fit can manipulate
-	return (c / (1 + np.exp((-1 * b1)) * (x - m1))) * (a + (c * np.exp(-np.exp((-1 * b2 * (x - m2))))))
+	return (c / (1 + np.exp((-1 * b1)) * (x - m1))) * (a + (c * np.exp(-np.exp((-1 * b2) * (x - m2)))))
 
 def residual_calculator(tt, y, p0):
 	#This function calculates the residual
@@ -125,12 +125,28 @@ def par_calc(par, start, stop, p0):
 		# rfr value from the function
 		y = f(par["tt"].loc[i], p0)
 		#Using the output from the function, calculate the PAR intercepted from 
-		# the observed kipp data, divided by two, to get the estimated proportion 
-		# of par data available, multiplying this by the predicted rfr value, gives 
-		# the predicted par intercepted 
+		# the observed kipp data, divided by two, to get the estimated 
+		# proportion of par data available, multiplying this by the predicted 
+		# rfr value, gives the predicted par intercepted 
 		y = y * (par["kipp"].loc[i] * 0.5)
 		temp.append(y)
 		tempi.append(i)
 	return sum(temp)
 
+
+def tt_calc(par, start, n, p0):
+	#This function will find the rfr n days after the input
+	ix_start = 0
+	for item in par.tt:
+		#for each item in the tt list
+		if start > item:
+			ix_start += 1
+			#increases the value of ix_start if start is greater than 
+			# the item, this will give the address of the tt value for start 
+			# in the par list
+	#sets the value of x_n, this is the tt n days after start
+	x_n = par["tt"].loc[(ix_start + n)]
+	#Calculates the rfr value at x_n, that is the tt for n days start
+	y_n = f(x_n, p0)
+	return y_n
 
