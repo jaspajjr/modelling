@@ -91,5 +91,46 @@ def senescence(max_count, sen_rfr, p0):
 			sen = count
 			break
 		else:
+			sen = "NaN"
+	return sen 
+
+def duration(start, stop):
+	# Calculates the difference between two x values
+	if type(start) == str or type(stop) == str:
+		#Error checking
+		return "NaN"
+	start = np.float64(start)
+	stop = np.float64(stop)
+	return stop - start
+
+def par_calc(par, start, stop, p0):
+	#PAR is the dataframe containing raw data about PAR interception
+	if type(p0[0]) == str:
+		#Error checking
+		return "NaN"
+	ix_start = 0
+	ix_stop = 0
+	for item in par.tt:
+		#Finds the approproate range of x values, in the par dataframe, 
+		# this is done by finding the value that corresponds closest to 
+		# that input as start or stop without over-estimating
+		if start > item:
+			ix_start += 1 
+		if stop > item:
+			ix_stop += 1
+	temp = []
+	tempi = []
+	for i in range(ix_start, ix_stop):
+		#for each x value between ix_start and ix_stop, calculate the predicted
+		# rfr value from the function
+		y = f(par["tt"].loc[i], p0)
+		#Using the output from the function, calculate the PAR intercepted from 
+		# the observed kipp data, divided by two, to get the estimated proportion 
+		# of par data available, multiplying this by the predicted rfr value, gives 
+		# the predicted par intercepted 
+		y = y * (par["kipp"].loc[i] * 0.5)
+		temp.append(y)
+		tempi.append(i)
+	return sum(temp)
 
 
