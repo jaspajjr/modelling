@@ -54,6 +54,8 @@ def marquardt(f, x, y, p0):
 	return out
 
 def plot_fit(p0, tt, plot):
+	#This module calculates the value of rfr at each x, it then calculates
+	# the maximum rfr value and the x at which this occured
 	y_pred = []
 	max_rfr = 0
 	max_count = 0
