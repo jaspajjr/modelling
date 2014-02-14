@@ -152,3 +152,4 @@ def tt_calc(par, start, n, p0):
 	y_n = f(x_n, p0)
 	return y_n
 
+print "start"
