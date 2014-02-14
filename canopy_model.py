@@ -151,5 +151,3 @@ def tt_calc(par, start, n, p0):
 	#Calculates the rfr value at x_n, that is the tt for n days start
 	y_n = f(x_n, p0)
 	return y_n
-
-print "start"
